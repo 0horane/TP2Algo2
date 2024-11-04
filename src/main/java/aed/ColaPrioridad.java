@@ -36,6 +36,7 @@ public class ColaPrioridad<T> {
         datos.set(0, datos.get(len()-1));
         datos.remove(len()-1);
         siftDown(0);
+        siftDown(0);
         return dato;
     }
     
@@ -88,10 +89,10 @@ public class ColaPrioridad<T> {
     }
 
     private int indiceHijoIzq(int index){
-        return index*1+1;
+        return index*2+1;
     }
     private int indiceHijoDer(int index){
-        return index*1+2;
+        return index*2+2;
     }
 
     private int indicePadre(int index){
