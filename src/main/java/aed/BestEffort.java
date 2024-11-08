@@ -33,7 +33,7 @@ public class BestEffort {
         ArrayList<Nodo<Traslado>> arrTrasladosRedi = new ArrayList<>();
         for (int i = 0; i < traslados.length; i++){
             Nodo<Traslado> nodo = new Nodo<>(traslados[i]);
-            Nodo<Traslado> nodoRef = new Nodo<>(null, nodo);
+            Nodo<Traslado> nodoRef = new Nodo<>(traslados[i], nodo);
             nodo.nodoAlterno = nodoRef;
 
             arrTrasladosAntiguo.add(nodo);
