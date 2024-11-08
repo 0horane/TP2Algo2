@@ -33,6 +33,15 @@ public class ColaPrioridad<T> {
         siftUp(pos);
     }
 
+    public Nodo<T> eliminar(int pos){
+        Nodo<T> res = datos.get(pos);
+        datos.set(pos, datos.get(datos.size()));
+        siftUp(pos);
+        siftDown(pos);
+        datos.remove(datos.size());
+        return res;
+    }
+
     public Nodo<T> sacarMaximo(){ // O(log |datos|)
         if (len()==0) return null;
         Nodo<T> dato = (Nodo<T>) datos.get(0);
