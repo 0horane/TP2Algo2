@@ -12,8 +12,13 @@ public class ColaPrioridad<T> {
         this.comparator = comparator;
     }
     
-    public ColaPrioridad(ArrayList<T> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
+    public ColaPrioridad(ArrayList<Nodo<T>> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
         this.datos = (ArrayList<Nodo<T>>) datos.clone(); 
+
+        for (int i = 0; i < datos.size(); i++){ // O(|datos|)
+            datos.get(i).pospropia = i;
+        }
+
         this.comparator = comparator;
         heapify();
     }
