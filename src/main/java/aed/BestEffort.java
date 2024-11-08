@@ -16,7 +16,15 @@ public class BestEffort {
     }
 
     public void registrarTraslados(Traslado[] traslados){
-        // Implementar
+        int i = 0;
+        while(i < traslados.length){
+            Nodo<Traslado> nuevo = new Nodo<Traslado>(traslados[i]);
+            Nodo<Traslado> nuevoalt = new Nodo<Traslado>(traslados[i], nuevo);
+            nuevo.nodoAlterno = nuevoalt;
+            this.trasladosAntiguo.agregar(nuevo);
+            this.trasladosRedi.agregar(nuevoalt);
+            i ++;
+        }
     }
 
     public int[] despacharMasRedituables(int n){
