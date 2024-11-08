@@ -2,8 +2,8 @@ package aed;
 
 public class Ciudad {
     public int ident;
-    private int ganancias;
-    private int perdidas;
+    public int ganancias;
+    public int perdidas;
 
     public Ciudad(int i) {
         this.ident = i;

@@ -61,7 +61,7 @@ public class ColaPrioridad<T> {
         return datos.size();
     }
 
-    private void siftUp(int index){ //O(log |datos|)
+    public void siftUp(int index){ //O(log |datos|)
         while (existeIndicePadre(index) && comparator.compare(datos.get(index), datos.get(indicePadre(index))) > 0){
             int parentIndex  = indicePadre(index);
             Nodo<T> datoactual = datos.get(index);
@@ -73,7 +73,7 @@ public class ColaPrioridad<T> {
         }
     }
     
-    private void siftDown(int index){ 
+    public void siftDown(int index){ 
         int greatestChildIndex;
         while (existeIndiceHijoIzq(index)){
             Nodo<T> datoactual = datos.get(index);
