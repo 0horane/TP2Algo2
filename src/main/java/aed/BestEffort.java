@@ -33,7 +33,7 @@ public class BestEffort {
         ArrayList<Nodo<Traslado>> arrTrasladosRedi = new ArrayList<>();
         for (int i = 0; i < traslados.length; i++){
             Nodo<Traslado> nodo = new Nodo<>(traslados[i]);
-            Nodo<Traslado> nodoRef = new Nodo<>(null, nodo);
+            Nodo<Traslado> nodoRef = new Nodo<>(traslados[i], nodo);
             nodo.nodoAlterno = nodoRef;
 
             arrTrasladosAntiguo.add(nodo);
@@ -59,13 +59,33 @@ public class BestEffort {
     }
 
     public int[] despacharMasRedituables(int n){
-        // Implementar
-        return null;
+        int i=0;
+        int[] res;
+        if (n > this.trasladosRedi.len()) {
+            res=new int[trasladosRedi.len()];
+        } else {
+            res= new int[n];
+        }
+        while (i<n){
+            res[i]=(despachar(trasladosRedi, trasladosAntiguo));
+            i++;
+        }
+        return res;
     }
 
     public int[] despacharMasAntiguos(int n){
-        // Implementar
-        return null;
+        int i=0;
+        int[] res;
+        if (n > this.trasladosAntiguo.len()) {
+            res=new int[trasladosAntiguo.len()];
+        } else {
+            res= new int[n];
+        }
+        while (i<n){
+            res[i]=(despachar(trasladosAntiguo, trasladosRedi));
+            i++;
+        }
+        return res;
     }
 
     public int ciudadConMayorSuperavit(){
@@ -87,5 +107,17 @@ public class BestEffort {
         // Implementar
         return 0;
     }
+
+    public int despachar(ColaPrioridad<Traslado> heap, ColaPrioridad<Traslado> heapAlterno){
+        Nodo<Traslado> nodoActual =heap.eliminar(0);
+        int palt = nodoActual.nodoAlterno.pospropia;
+        heapAlterno.eliminar(palt);
+        for (i in conjCiudades) {
+            
+        }
+        return nodoActual.valor.id;
+    }
+
+
     
 }

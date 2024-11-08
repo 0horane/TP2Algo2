@@ -15,4 +15,8 @@ public class Traslado {
         this.gananciaNeta = gananciaNeta;
         this.timestamp = timestamp;
     }
+
+    public String toString(){
+        return "T("+Integer.toString(id)+","+Integer.toString(origen)+",-"+Integer.toString(destino)+",-"+Integer.toString(gananciaNeta)+",-"+Integer.toString(timestamp)+")";
+    }
 }

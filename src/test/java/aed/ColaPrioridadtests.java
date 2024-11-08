@@ -27,7 +27,7 @@ public class ColaPrioridadtests {
         ColaPrioridad<Integer> cola = new ColaPrioridad<Integer>(c);
         Nodo<Integer> n1 = new Nodo<Integer>(1);
         cola.agregar(n1);
-        assertEquals(1,cola.sacarMaximo().valor);
+        assertEquals(1,cola.eliminar(0).valor);
         assertEquals(null,cola.maximo());
     }
     @Test 
@@ -37,8 +37,8 @@ public class ColaPrioridadtests {
         Nodo<Integer> n2 = new Nodo<Integer>(2);
         cola.agregar(n1);
         cola.agregar(n2);
-        assertEquals(2,cola.sacarMaximo().valor);
-        assertEquals(1,cola.sacarMaximo().valor);
+        assertEquals(2,cola.eliminar(0).valor);
+        assertEquals(1,cola.eliminar(0).valor);
     }
     @Test 
     void heapConVariosEnDesorden(){
@@ -56,12 +56,12 @@ public class ColaPrioridadtests {
         cola.agregar(n3);
         cola.agregar(n6);
         cola.agregar(n5);
-        assertEquals(6,cola.sacarMaximo().valor);
-        assertEquals(5,cola.sacarMaximo().valor);
-        assertEquals(4,cola.sacarMaximo().valor);
-        assertEquals(3,cola.sacarMaximo().valor);
-        assertEquals(2,cola.sacarMaximo().valor);
-        assertEquals(1,cola.sacarMaximo().valor);
+        assertEquals(6,cola.eliminar(0).valor);
+        assertEquals(5,cola.eliminar(0).valor);
+        assertEquals(4,cola.eliminar(0).valor);
+        assertEquals(3,cola.eliminar(0).valor);
+        assertEquals(2,cola.eliminar(0).valor);
+        assertEquals(1,cola.eliminar(0).valor);
     }
     @Test
     void heapToString(){
