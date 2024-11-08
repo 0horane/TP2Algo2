@@ -108,7 +108,10 @@ public class ColaPrioridad<T> {
     }
     
     public String toString(){
-        return datos.toString();
+        int i = 0;
+        while(i< this.datos.l){
+
+        }
     }
 
     private int indiceHijoIzq(int index){
