@@ -1,41 +1,45 @@
 package aed;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 
 public class ColaPrioridad<T> {
-    private ArrayList<T> datos;
-    private Comparator<T> comparator;
+    private ArrayList<Nodo<T>> datos;
+    private Comparator<Nodo<T>> comparator;
 
-    public ColaPrioridad(Comparator<T> comparator){ //O(1)
-        this.datos = new ArrayList<T>();
+    public ColaPrioridad(Comparator<Nodo<T>> comparator){ //O(1)
+        this.datos = new ArrayList<Nodo<T>>();
         this.comparator = comparator;
     }
     
-    public ColaPrioridad(ArrayList<T> datos, Comparator<T> comparator){ //O(|datos|)
-        this.datos = (ArrayList<T>) datos.clone(); 
+    public ColaPrioridad(ArrayList<T> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
+        this.datos = (ArrayList<Nodo<T>>) datos.clone(); 
         this.comparator = comparator;
         heapify();
     }
     
-    public T maximo(){ //O(1)
+    public Nodo<T> maximo(){ //O(1)
         if (len() > 0){
-            return (T) datos.get(0); 
+            return (Nodo<T>) datos.get(0); 
         } else {
             return null;
         }
     }
 
-    public void agregar(T dato){ //O(log|datos|)
+    public void agregar(Nodo<T> dato){ //O(log|datos|)
         datos.add(dato);
-        siftUp(datos.size()-1);
+        int pos = datos.size()-1;
+        dato.pospropia = pos; 
+        siftUp(pos);
     }
 
-    public T sacarMaximo(){ // O(log |datos|)
+    public Nodo<T> sacarMaximo(){ // O(log |datos|)
         if (len()==0) return null;
-        T dato = (T) datos.get(0);
-        datos.set(0, datos.get(len()-1));
+        Nodo<T> dato = (Nodo<T>) datos.get(0);
+        Nodo<T> nuevoMax = (Nodo<T>) datos.get(len()-1);
+        datos.set(0, nuevoMax);
+        nuevoMax.pospropia = 0;
         datos.remove(len()-1);
-        siftDown(0);
         siftDown(0);
         return dato;
     }
@@ -47,30 +51,44 @@ public class ColaPrioridad<T> {
     private void siftUp(int index){ //O(log |datos|)
         while (index != 0 && comparator.compare(datos.get(index), datos.get(indicePadre(index))) > 0){
             int parentIndex  = indicePadre(index);
-            T datoactual = datos.get(index);
-            datos.set(index, datos.get(parentIndex));
+            Nodo<T> datoactual = datos.get(index);
+            Nodo<T> datopadre = datos.get(parentIndex);
+            datos.set(index, datopadre);
             datos.set(parentIndex, datoactual);
+
+            datoactual.pospropia = parentIndex;
+            datopadre.pospropia = index;
+
             index = parentIndex;
         }
     }
     
     private void siftDown(int index){ 
-        int childIndex;
+        int greatestChildIndex;
         while (indiceHijoIzq(index) < len()){
-            T datoactual = datos.get(index);
+            Nodo<T> datoactual = datos.get(index);
+            if (indiceHijoDer(index) < len() && comparator.compare(datos.get(indiceHijoIzq(index)), datos.get(indiceHijoDer(index))) < 0){
+                greatestChildIndex = indiceHijoDer(index);
+            } else {
+                greatestChildIndex = indiceHijoIzq(index);
+            }
 
-            if (comparator.compare(datoactual, datos.get(indiceHijoIzq(index))) < 0)
-                childIndex = indiceHijoIzq(index);
-            else if (  indiceHijoDer(index) < len() &&  comparator.compare(datoactual, datos.get(indiceHijoDer(index))) < 0)
-                childIndex = indiceHijoDer(index);
-            else break;
+            Nodo<T> greatestChild = datos.get(greatestChildIndex);
+            if (comparator.compare(datoactual, greatestChild) < 0 ){
+                datos.set(index, greatestChild);
+                datos.set(greatestChildIndex, datoactual);
+
+                greatestChild.pospropia = datoactual.pospropia;
+                datoactual.pospropia = greatestChildIndex;
+                
+                index = greatestChildIndex;
+            } else {
+                break;
+            }
             
-
-            datos.set(index, datos.get(childIndex));
-            datos.set(childIndex, datoactual);
-            index = childIndex;
         }
     }
+
     
     private void heapify(){
         if (len() == 0) return;

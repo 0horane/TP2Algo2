@@ -5,8 +5,12 @@ public class Nodo<T> {
     int pospropia;
     Nodo<T> nodoAlterno;
 
-    public Nodo(T v, int pos){
+    public Nodo(T v){
         this.valor = v;
-        this.pospropia = pos;
+    }
+
+    public Nodo(T v, Nodo<T> nodoAlterno){
+        this.valor = v;
+        this.nodoAlterno = nodoAlterno;
     }
 }

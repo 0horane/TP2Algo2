@@ -18,10 +18,10 @@ public class ColaPrioridadtests {
         System.out.println(test.toString());
         System.out.println(test.sacarMaximo());
         System.out.println(test.toString());
-        test.agregar(100);
-        test.agregar(101);
-        test.agregar(50);
-        test.agregar(50);
+        test.agregar(new Nodo(100));
+        test.agregar(new Nodo(101));
+        test.agregar(new Nodo(50));
+        test.agregar(new Nodo(50));
         System.out.println(test.toString());
     }
     @Test

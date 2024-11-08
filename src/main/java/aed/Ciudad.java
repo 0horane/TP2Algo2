@@ -12,11 +12,11 @@ public class Ciudad {
     }
 
     public void agregarGanancia(int n) {
-        this.ganancias = this.ganancias + 1;
+        this.ganancias = this.ganancias + n;
     }
 
     public void agregarPerdidas(int n) {
-        this.perdidas = this.perdidas + 1;
+        this.perdidas = this.perdidas + n;
     }
 
     public int superavit() {
