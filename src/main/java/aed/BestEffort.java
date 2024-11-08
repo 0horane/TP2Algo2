@@ -3,7 +3,13 @@ package aed;
 import java.util.ArrayList;
 
 public class BestEffort {
-    //Completar atributos privados
+    private ColaPrioridad<Ciudad> ciudadesSuperavit;
+    private ColaPrioridad<Traslado> trasladosAntiguo;
+    private ColaPrioridad<Traslado> trasladosRedi;
+    private ArrayList<Nodo<Ciudad>> conjCiudaes;
+    private ArrayList<Integer> ciudadesMasGanancias;
+    private ArrayList<Integer> ciudadesMasPerdidas;
+
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
         // Implementar
