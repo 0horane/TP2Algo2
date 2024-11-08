@@ -1,8 +1,10 @@
 package aed;
 
-public class CompSuperavit implements Comparator<Ciudad>{
+import java.util.Comparator;
+
+public class CompSuperavit implements Comparator<Nodo<Ciudad>>{
     //Si devuelve positivo, c1 > c2 (c1 mayor superavit que t2).
-    public int comparar(Nodo<Ciudad> c1, Nodo<Ciudad> c2){
+    public int compare(Nodo<Ciudad> c1, Nodo<Ciudad> c2){
         int res;
         int c1sup = c1.valor.superavit();
         int c2sup = c2.valor.superavit();
