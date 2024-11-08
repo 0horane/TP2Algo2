@@ -22,4 +22,8 @@ public class Ciudad {
     public int superavit() {
         return this.ganancias - this.perdidas;
     }
+
+    public String toString(){
+        return "C("+Integer.toString(ident)+","+Integer.toString(ganancias)+",-"+Integer.toString(perdidas)+")";
+    }
 }
