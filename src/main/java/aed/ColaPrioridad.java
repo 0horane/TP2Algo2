@@ -12,8 +12,13 @@ public class ColaPrioridad<T> {
         this.comparator = comparator;
     }
     
-    public ColaPrioridad(ArrayList<T> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
+    public ColaPrioridad(ArrayList<Nodo<T>> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
         this.datos = (ArrayList<Nodo<T>>) datos.clone(); 
+
+        for (int i = 0; i < datos.size(); i++){ // O(|datos|)
+            datos.get(i).pospropia = i;
+        }
+
         this.comparator = comparator;
         heapify();
     }
@@ -46,8 +51,7 @@ public class ColaPrioridad<T> {
         if (len()==0) return null;
         Nodo<T> dato = (Nodo<T>) datos.get(0);
         Nodo<T> nuevoMax = (Nodo<T>) datos.get(len()-1);
-        datos.set(0, nuevoMax);
-        nuevoMax.pospropia = 0;
+        swap(dato, nuevoMax);
         datos.remove(len()-1);
         siftDown(0);
         return dato;
@@ -58,15 +62,12 @@ public class ColaPrioridad<T> {
     }
 
     private void siftUp(int index){ //O(log |datos|)
-        while (index != 0 && comparator.compare(datos.get(index), datos.get(indicePadre(index))) > 0){
+        while (existeIndicePadre(index) && comparator.compare(datos.get(index), datos.get(indicePadre(index))) > 0){
             int parentIndex  = indicePadre(index);
             Nodo<T> datoactual = datos.get(index);
             Nodo<T> datopadre = datos.get(parentIndex);
-            datos.set(index, datopadre);
-            datos.set(parentIndex, datoactual);
 
-            datoactual.pospropia = parentIndex;
-            datopadre.pospropia = index;
+            swap(datoactual, datopadre);
 
             index = parentIndex;
         }
@@ -74,9 +75,9 @@ public class ColaPrioridad<T> {
     
     private void siftDown(int index){ 
         int greatestChildIndex;
-        while (indiceHijoIzq(index) < len()){
+        while (existeIndiceHijoIzq(index)){
             Nodo<T> datoactual = datos.get(index);
-            if (indiceHijoDer(index) < len() && comparator.compare(datos.get(indiceHijoIzq(index)), datos.get(indiceHijoDer(index))) < 0){
+            if (existeIndiceHijoDer(index) && comparator.compare(hijoIzq(datoactual), hijoDer(datoactual)) < 0){
                 greatestChildIndex = indiceHijoDer(index);
             } else {
                 greatestChildIndex = indiceHijoIzq(index);
@@ -84,11 +85,7 @@ public class ColaPrioridad<T> {
 
             Nodo<T> greatestChild = datos.get(greatestChildIndex);
             if (comparator.compare(datoactual, greatestChild) < 0 ){
-                datos.set(index, greatestChild);
-                datos.set(greatestChildIndex, datoactual);
-
-                greatestChild.pospropia = datoactual.pospropia;
-                datoactual.pospropia = greatestChildIndex;
+                swap(greatestChild, datoactual);
                 
                 index = greatestChildIndex;
             } else {
@@ -118,6 +115,7 @@ public class ColaPrioridad<T> {
     private int indiceHijoIzq(int index){
         return index*2+1;
     }
+
     private int indiceHijoDer(int index){
         return index*2+2;
     }
@@ -125,5 +123,51 @@ public class ColaPrioridad<T> {
     private int indicePadre(int index){
         return (index-1)/2;
     }
+
+    private Nodo<T> hijoIzq(Nodo<T> padre){
+        return datos.get(padre.pospropia*2+1);
+    }
+
+    private Nodo<T> hijoDer(Nodo<T> padre){
+        return datos.get(padre.pospropia*2+2);
+    }
+    private Nodo<T> padre(Nodo<T> hijo){
+        return datos.get((hijo.pospropia-1)/2);
+    }
+
+    private Boolean existeHijoIzq(Nodo<T> padre){
+        return padre.pospropia*2+1 < len();
+    }
+
+    private Boolean existeHijoDer(Nodo<T> padre){
+        return padre.pospropia*2+2 < len();
+    }
+
+    private Boolean existePadre(Nodo<T> hijo){
+        return hijo.pospropia != 0;
+    }
+
+    private Boolean existeIndiceHijoIzq(int index){
+        return index*2+1 < len();
+    }
+
+    private Boolean existeIndiceHijoDer(int index){
+        return index*2+2 < len();
+    }
+
+    private Boolean existeIndicePadre(int index){
+        return index != 0;
+    }
+
+
+    private void swap(Nodo<T> nodo1, Nodo<T> nodo2){
+        datos.set(nodo1.pospropia, nodo2);
+        datos.set(nodo2.pospropia, nodo1);
+
+        int temp = nodo1.pospropia;
+        nodo1.pospropia = nodo2.pospropia;
+        nodo2.pospropia = temp;
+    }
+
 
 }
