@@ -25,7 +25,10 @@ public class BestEffort {
             MasPerdidas.add(i);
         }
         ciudadesSuperavit = new ColaPrioridad<>(conjCiudades, new CompSuperavit());
-
+        for (int i = 0; i < conjCiudades.size(); i++){
+            Nodo<Ciudad> ciudadalt = new Nodo<Ciudad>(conjCiudades.get(i).valor,conjCiudades.get(i));
+            ciudadesSuperavit.agregar(ciudadalt);
+        }
 
 
 
@@ -40,8 +43,8 @@ public class BestEffort {
             arrTrasladosRedi.add(nodoRef);
         }
         
-        trasladosAntiguo = new ColaPrioridad<>(arrTrasladosAntiguo, new CompAntiguedad());
-        trasladosAntiguo = new ColaPrioridad<>(arrTrasladosRedi, new CompRedituabilidad());
+        this.trasladosAntiguo = new ColaPrioridad<>(arrTrasladosAntiguo, new CompAntiguedad());
+        this.trasladosRedi = new ColaPrioridad<>(arrTrasladosRedi, new CompRedituabilidad());
 
 
     }
@@ -117,7 +120,7 @@ public class BestEffort {
         } else {
             res= new int[n];
         }
-        while (i<n && i<heap.len()){
+        while (i< res.length){
             Nodo<Traslado> nodoActual =heap.eliminar(0);
             int palt = nodoActual.nodoAlterno.pospropia;
              heapAlterno.eliminar(palt);
