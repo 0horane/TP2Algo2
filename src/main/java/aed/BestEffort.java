@@ -25,7 +25,10 @@ public class BestEffort {
             MasPerdidas.add(i);
         }
         ciudadesSuperavit = new ColaPrioridad<>(conjCiudades, new CompSuperavit());
-
+        for (int i = 0; i < conjCiudades.size(); i++){
+            Nodo<Ciudad> ciudadalt = new Nodo<Ciudad>(conjCiudades.get(i).valor,conjCiudades.get(i));
+            ciudadesSuperavit.agregar(ciudadalt);
+        }
 
 
 
@@ -40,8 +43,8 @@ public class BestEffort {
             arrTrasladosRedi.add(nodoRef);
         }
         
-        trasladosAntiguo = new ColaPrioridad<>(arrTrasladosAntiguo, new CompAntiguedad());
-        trasladosAntiguo = new ColaPrioridad<>(arrTrasladosRedi, new CompRedituabilidad());
+        this.trasladosAntiguo = new ColaPrioridad<>(arrTrasladosAntiguo, new CompAntiguedad());
+        this.trasladosRedi = new ColaPrioridad<>(arrTrasladosRedi, new CompRedituabilidad());
 
 
     }
@@ -117,7 +120,7 @@ public class BestEffort {
         } else {
             res= new int[n];
         }
-        while (i<n && i<heap.len()){
+        while (i< res.length){
             Nodo<Traslado> nodoActual =heap.eliminar(0);
             int palt = nodoActual.nodoAlterno.pospropia;
              heapAlterno.eliminar(palt);
@@ -126,8 +129,9 @@ public class BestEffort {
             conjCiudades.get(nodoActual.valor.destino).valor.agregarPerdidas(nodoActual.valor.gananciaNeta);
             // actualizarGanancias(nodoActual.valor.origen);
             // actualizarPerdidas(nodoActual.valor.destino);
-            actualizarBalance(nodoActual.valor.origen, conjCiudades.get(i).valor.ganancias, conjCiudades.get(MasGanancias.get(0)).valor.ganancias, MasGanancias.get(0), MasGanancias);
-            actualizarBalance(nodoActual.valor.destino, conjCiudades.get(i).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);
+            // actualizarBalance(nodoActual.valor.origen, conjCiudades.get(i).valor.ganancias, conjCiudades.get(MasGanancias.get(0)).valor.ganancias, MasGanancias.get(0), MasGanancias);
+            // actualizarBalance(nodoActual.valor.destino, conjCiudades.get(i).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);
+            actualizarBalance(nodoActual);
             ciudadesSuperavit.siftUp(conjCiudades.get(nodoActual.valor.origen).pospropia);
             ciudadesSuperavit.siftDown(conjCiudades.get(nodoActual.valor.destino).pospropia);
             despachosHechos += 1;
@@ -137,30 +141,46 @@ public class BestEffort {
         return res;
     }
 
-    public void actualizarGanancias(int i){
-        if (conjCiudades.get(i).valor.ganancias> conjCiudades.get(MasGanancias.get(0)).valor.ganancias
-            || (i == MasGanancias.get(0) && conjCiudades.get(i).valor.ganancias == conjCiudades.get(MasGanancias.get(0)).valor.ganancias)){
-            MasGanancias.clear();
-            Integer j = (Integer) i;
-            MasGanancias.add(j);
-        } else if (conjCiudades.get(i).valor.ganancias== conjCiudades.get(MasGanancias.get(0)).valor.ganancias){
-            Integer j = (Integer) i;
-            MasGanancias.add(j);
-        }}
+    // public void actualizarGanancias(int i){
+    //     if (conjCiudades.get(i).valor.ganancias> conjCiudades.get(MasGanancias.get(0)).valor.ganancias
+    //         || (i == MasGanancias.get(0) && conjCiudades.get(i).valor.ganancias == conjCiudades.get(MasGanancias.get(0)).valor.ganancias)){
+    //         MasGanancias.clear();
+    //         Integer j = (Integer) i;
+    //         MasGanancias.add(j);
+    //     } else if (conjCiudades.get(i).valor.ganancias== conjCiudades.get(MasGanancias.get(0)).valor.ganancias){
+    //         Integer j = (Integer) i;
+    //         MasGanancias.add(j);
+    //     }}
 
-    public void actualizarPerdidas(int i){
-        if (conjCiudades.get(i).valor.perdidas> conjCiudades.get(MasPerdidas.get(0)).valor.perdidas
-            || (i == MasPerdidas.get(0) && conjCiudades.get(i).valor.perdidas == conjCiudades.get(MasPerdidas.get(0)).valor.perdidas)){
-            MasPerdidas.clear();
-            Integer j = (Integer) i;
-            MasPerdidas.add(j);
-        } else if (conjCiudades.get(i).valor.perdidas== conjCiudades.get(MasPerdidas.get(0)).valor.perdidas){
-            Integer j = (Integer) i;
-            MasPerdidas.add(j);
-        }}
+    // public void actualizarPerdidas(int i){
+    //     if (conjCiudades.get(i).valor.perdidas> conjCiudades.get(MasPerdidas.get(0)).valor.perdidas
+    //         || (i == MasPerdidas.get(0) && conjCiudades.get(i).valor.perdidas == conjCiudades.get(MasPerdidas.get(0)).valor.perdidas)){
+    //         MasPerdidas.clear();
+    //         Integer j = (Integer) i;
+    //         MasPerdidas.add(j);
+    //     } else if (conjCiudades.get(i).valor.perdidas== conjCiudades.get(MasPerdidas.get(0)).valor.perdidas){
+    //         Integer j = (Integer) i;
+    //         MasPerdidas.add(j);
+    //     }}
 
-        public void actualizarBalance(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){
-            if (valorAnalizado > valorAnalizado || (i == posPrimerPos && valorAnalizado == valorPrimerPos)){
+        // public void actualizarBalance(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){
+        //     if (valorAnalizado > valorAnalizado || (i == posPrimerPos && valorAnalizado == valorPrimerPos)){
+        //         lista.clear();
+        //         Integer j = (Integer) i;
+        //         lista.add(j);
+        //     } else if (valorAnalizado == valorPrimerPos){
+        //         Integer j = (Integer) i;
+        //         lista.add(j);
+        //     }}
+
+        public void actualizarBalance(Nodo<Traslado> nodoActual){
+            int orig = nodoActual.valor.origen;
+            int dest = nodoActual.valor.destino;
+            resolverMaximo(orig, conjCiudades.get(orig).valor.ganancias, conjCiudades.get(MasGanancias.get(0)).valor.ganancias, MasGanancias.get(0), MasGanancias);
+            resolverMaximo(dest, conjCiudades.get(dest).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);
+        }
+        public void resolverMaximo(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){
+            if (valorAnalizado > valorAnalizado || (i == posPrimerPos)){
                 lista.clear();
                 Integer j = (Integer) i;
                 lista.add(j);
@@ -168,6 +188,6 @@ public class BestEffort {
                 Integer j = (Integer) i;
                 lista.add(j);
             }}
-    
+
 
 }
