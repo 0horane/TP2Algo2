@@ -93,23 +93,19 @@ public class BestEffort {
     }
 
     public int ciudadConMayorSuperavit(){
-        // Implementar
-        return 0;
+        return this.ciudadesSuperavit.maximo().valor.ident;
     }
 
     public ArrayList<Integer> ciudadesConMayorGanancia(){
-        // Implementar
-        return null;
+        return this.MasGanancias;
     }
 
     public ArrayList<Integer> ciudadesConMayorPerdida(){
-        // Implementar
-        return null;
+        return this.MasPerdidas;
     }
 
     public int gananciaPromedioPorTraslado(){
-        // Implementar
-        return 0;
+        return this.gananciasTotales/this.despachosHechos;
     }
 
     public int[] despacharNVeces(ColaPrioridad<Traslado> heap, ColaPrioridad<Traslado> heapAlterno, int n){
@@ -134,8 +130,8 @@ public class BestEffort {
             actualizarBalance(nodoActual);
             ciudadesSuperavit.siftUp(conjCiudades.get(nodoActual.valor.origen).pospropia);
             ciudadesSuperavit.siftDown(conjCiudades.get(nodoActual.valor.destino).pospropia);
-            despachosHechos += 1;
-            gananciasTotales +=nodoActual.valor.gananciaNeta;
+            this.despachosHechos ++;
+            this.gananciasTotales +=nodoActual.valor.gananciaNeta;
             i++;
         }
         return res;
@@ -180,7 +176,7 @@ public class BestEffort {
             resolverMaximo(dest, conjCiudades.get(dest).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);
         }
         public void resolverMaximo(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){
-            if (valorAnalizado > valorAnalizado || (i == posPrimerPos)){
+            if (valorAnalizado > valorPrimerPos || (i == posPrimerPos)){
                 lista.clear();
                 Integer j = (Integer) i;
                 lista.add(j);
