@@ -101,7 +101,7 @@ public class ColaPrioridad<T> {
     private void heapify(){
         if (len() == 0) return;
         int p2menor = 1;
-        while (p2menor*2 < len()){
+        while (p2menor*2 <= len()){
             p2menor *= 2; 
         }
         
