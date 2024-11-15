@@ -196,4 +196,13 @@ public class BestEffortTests {
         assertEquals(2, sis.ciudadConMayorSuperavit());
 
     }
+
+    private static Integer clave(Integer NCLAVES, Integer i) {
+        return NCLAVES * ((i * i - 100 * i) % NCLAVES) + i;
+    }
+
+    @Test
+    void stresstest(){
+
+    }
 }
