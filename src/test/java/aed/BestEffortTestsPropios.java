@@ -66,8 +66,10 @@ void ciudadesPerdidasYGanancias(){
     assertEquals(6, sis.ciudadConMayorSuperavit());
     assertSetEquals(new ArrayList<>(Arrays.asList(3)), sis.ciudadesConMayorPerdida());
     assertSetEquals(new ArrayList<>(Arrays.asList(6)), sis.ciudadesConMayorGanancia());
+    assertEquals(2000, sis.gananciaPromedioPorTraslado());
 
     sis.despacharMasRedituables(2);
     assertSetEquals(new ArrayList<>(Arrays.asList(6, 1)), sis.ciudadesConMayorGanancia());
+    assertEquals(1333, sis.gananciaPromedioPorTraslado());
 }
 }
