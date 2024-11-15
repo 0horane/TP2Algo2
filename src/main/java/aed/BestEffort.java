@@ -15,6 +15,7 @@ public class BestEffort {
 
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
+        // inicializar y llenar todos los arreglos
         conjCiudades = new ArrayList<>();    // O(1)
         MasGanancias = new ArrayList<>();    // O(1)
         MasPerdidas = new ArrayList<>();    // O(1)
@@ -24,14 +25,7 @@ public class BestEffort {
             MasGanancias.add(i);         // O(1)
             MasPerdidas.add(i);          // O(1)
         }
-        ciudadesSuperavit = new ColaPrioridad<>(conjCiudades, new CompSuperavit());    // O(|C|)
-        for (int i = 0; i < conjCiudades.size(); i++){    // Se itera |C| veces. En conjunto queda O(|C| log|C|) lo que esta MAL, CORREGIR.
-            Nodo<Ciudad> ciudadalt = new Nodo<Ciudad>(conjCiudades.get(i).valor,conjCiudades.get(i));    // O(1)
-            ciudadesSuperavit.agregar(ciudadalt);    // O(log|C|). OJO, HAY UN ERROR. SE TIENE QUE USAR HEAPIFY, NO AGREGAR DE A UNO.
-        }
-
-
-
+        
         ArrayList<Nodo<Traslado>> arrTrasladosAntiguo = new ArrayList<>();    // O(1)
         ArrayList<Nodo<Traslado>> arrTrasladosRedi = new ArrayList<>();       // O(1)
         for (int i = 0; i < traslados.length; i++){    // Se itera |T| veces. En conjunto queda O(T).
@@ -42,11 +36,13 @@ public class BestEffort {
             arrTrasladosAntiguo.add(nodo);    // O(1)
             arrTrasladosRedi.add(nodoRef);    // O(1)
         }
-        
+
+        //generar colas de prioridad usando heapify de los arreglos que corresponde.
+        ciudadesSuperavit = new ColaPrioridad<>(conjCiudades, new CompSuperavit());    // O(|C|)
+                                                                                       //
         this.trasladosAntiguo = new ColaPrioridad<>(arrTrasladosAntiguo, new CompAntiguedad());    // O(|T|)
         this.trasladosRedi = new ColaPrioridad<>(arrTrasladosRedi, new CompRedituabilidad());      // O(|T|)
 
-        // Por ahora la complejidad esta quedando como O(|C| log|C| + |T|). CORREGIR EL ERROR DE NO AGREGAR POR HEAPIFY AL ciudadesSuperavit.
     }
 
     public void registrarTraslados(Traslado[] traslados){    // El metodo es O(|traslados| log|T|).

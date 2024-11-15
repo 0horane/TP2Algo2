@@ -1,9 +1,9 @@
 package aed;
 
 public class Nodo<T> {
-    T valor;
-    int pospropia;
-    Nodo<T> nodoAlterno;
+    T valor;                // datos contenidos
+    int pospropia;          // posicion en heap
+    Nodo<T> nodoAlterno;    // referencia a nodo en otro heap, si existe
 
     public Nodo(T v){
         this.valor = v;
