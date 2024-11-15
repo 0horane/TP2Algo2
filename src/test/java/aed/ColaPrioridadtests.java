@@ -96,7 +96,7 @@ public class ColaPrioridadtests {
             Nodo<Integer> n = new Nodo<Integer>(i);
             cola.agregar(n);
         }
-        for (int i = 1; i <= 6;i++){
+        for (int i = 6; i >= 1;i--){
             Nodo<Integer> n = new Nodo<Integer>(i);
             cola.agregar(n);
         }

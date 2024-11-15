@@ -12,7 +12,9 @@ public class BestEffort {
     private int gananciasTotales = 0;    // O(1)
     private int despachosHechos = 0;     // O(1)
 
-
+    public static BestEffort nuevoSistema(int cantCiudades, Traslado[] traslados){
+        return new BestEffort(cantCiudades, traslados);
+    }
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
         // inicializar y llenar todos los arreglos
