@@ -10,17 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class BestEffortTestsPropios {
 
-    void assertSetEquals(int[] s1, int[] s2) {
-        assertEquals(s1.length, s2.length);
-        for (int e1 : s1) {
-            boolean encontrado = false;
-            for (int e2 : s2) {
-                if (e1 == e2) encontrado = true;
-            }
-            assertTrue(encontrado, "No se encontró el elemento " +  e1 + " en el arreglo " + s2.toString());
-        }
-    }
-
     void assertSetEquals(ArrayList<Integer> s1, ArrayList<Integer> s2) {
         assertEquals(s1.size(), s2.size());
         for (int e1 : s1) {
@@ -31,6 +20,7 @@ public class BestEffortTestsPropios {
             assertTrue(encontrado, "No se encontró el elemento " +  e1 + " en el arreglo " + s2.toString());
         }
     }
+    
 
     int cantCiudades;
     Traslado[] listaTraslados;
@@ -58,13 +48,13 @@ public class BestEffortTestsPropios {
 void despacharRedituabilidadYAntiguedad(){
     BestEffort sis = new BestEffort(this.cantCiudades, this.listaTraslados);
 
-    
-    
-    assertSetEquals(new int[] {7}, sis.despacharMasRedituables(1));
-    assertSetEquals(new int[] {1}, sis.despacharMasAntiguos(1));
-    assertSetEquals(new int[] {6,5,4,3}, sis.despacharMasRedituables(4));
-    assertSetEquals(new int[] {2}, sis.despacharMasRedituables(100));
+    assertArrayEquals(new int[] {7}, sis.despacharMasRedituables(1));
+    assertArrayEquals(new int[] {1}, sis.despacharMasAntiguos(1));
+    assertArrayEquals(new int[] {5,6,3}, sis.despacharMasRedituables(3));
+    assertArrayEquals(new int[] {4}, sis.despacharMasAntiguos(1));
 }
+
+
 
 @Test
 void ciudadesPerdidasYGanancias(){
@@ -76,5 +66,8 @@ void ciudadesPerdidasYGanancias(){
     assertEquals(6, sis.ciudadConMayorSuperavit());
     assertSetEquals(new ArrayList<>(Arrays.asList(3)), sis.ciudadesConMayorPerdida());
     assertSetEquals(new ArrayList<>(Arrays.asList(6)), sis.ciudadesConMayorGanancia());
+
+    sis.despacharMasRedituables(2);
+    assertSetEquals(new ArrayList<>(Arrays.asList(6, 1)), sis.ciudadesConMayorGanancia());
 }
 }
