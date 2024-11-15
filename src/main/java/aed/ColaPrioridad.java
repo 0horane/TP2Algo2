@@ -12,7 +12,7 @@ public class ColaPrioridad<T> {
     }
     
     public ColaPrioridad(ArrayList<Nodo<T>> datos, Comparator<Nodo<T>> comparator){ //O(|datos|)
-        this.datos = (ArrayList<Nodo<T>>) datos.clone();    //O(|datos|) 
+        this.datos = new ArrayList<Nodo<T>>( datos);//.clone();    //O(|datos|) 
 
         for (int i = 0; i < datos.size(); i++){ // O(|datos|) porque itera |datos| veces
             datos.get(i).pospropia = i; //O(1)
