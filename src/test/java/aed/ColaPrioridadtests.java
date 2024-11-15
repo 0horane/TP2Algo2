@@ -48,7 +48,9 @@ public class ColaPrioridadtests {
             Nodo<Integer> n = new Nodo<Integer>(i);
             cola.agregar(n);
         }
-        for (int i = 6; i >=1 ;i--){
+        System.out.println(cola.toString());
+        assertEquals(2,cola.eliminar(5).valor);
+        for (int i = 6; i >2 ;i--){
             assertEquals(i,cola.eliminar(0).valor);
         }
     }

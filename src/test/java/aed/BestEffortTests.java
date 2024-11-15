@@ -43,6 +43,8 @@ public class BestEffortTests {
         }
     }
 
+
+
     @Test
     void despachar_con_mas_ganancia_de_a_uno(){
         BestEffort sis = new BestEffort(this.cantCiudades, this.listaTraslados);
