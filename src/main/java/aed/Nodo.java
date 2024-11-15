@@ -5,12 +5,12 @@ public class Nodo<T> {
     int pospropia;          // posicion en heap
     Nodo<T> nodoAlterno;    // referencia a nodo en otro heap, si existe
 
-    public Nodo(T v){
-        this.valor = v;
+    public Nodo(T v){    //El método es O(1)
+        this.valor = v;    //O(1)
     }
 
-    public Nodo(T v, Nodo<T> nodoAlterno){
-        this.valor = v;
-        this.nodoAlterno = nodoAlterno;
+    public Nodo(T v, Nodo<T> nodoAlterno){    //El método es O(1)
+        this.valor = v;    //O(1)
+        this.nodoAlterno = nodoAlterno;    //O(1)
     }
 }
