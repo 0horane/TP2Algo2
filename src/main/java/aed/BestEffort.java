@@ -59,33 +59,10 @@ public class BestEffort {
 
     public int[] despacharMasRedituables(int n){    // El metodo es O(n (log|T| + log|C|)).
         return despacharNVeces(trasladosRedi, trasladosAntiguo, n);    // O(n (log|T| + log|C|))
-        // int i=0;
-        // int[] res;
-        // if (n > this.trasladosRedi.len()) {
-        //     res=new int[trasladosRedi.len()];
-        // } else {
-        //     res= new int[n];
-        // }
-        // while (i<n){
-        //     res[i]=(despachar(trasladosRedi, trasladosAntiguo));
-        //     i++;
-        // }
-        // return res;
     }
 
     public int[] despacharMasAntiguos(int n){    // El metodo es O(n (log|T| + log|C|)).
         return despacharNVeces(trasladosAntiguo, trasladosRedi, n);    // O(n (log|T| + log|C|))
-        // int i=0;
-        // int[] res;
-        // if (n > this.trasladosAntiguo.len()) {
-        //     res=new int[trasladosAntiguo.len()];
-        // } else {
-        //     res= new int[n];
-        // }
-        // while (i<n){
-        //     res[i]=(despachar(trasladosAntiguo, trasladosRedi));
-        //     i++;
-        // }
     }
 
     public int ciudadConMayorSuperavit(){    // El metodo es O(1).
@@ -119,10 +96,6 @@ public class BestEffort {
             res[i]=nodoActual.valor.id;                     // O(1)
             conjCiudades.get(nodoActual.valor.origen).valor.agregarGanancia(nodoActual.valor.gananciaNeta);    // O(1)
             conjCiudades.get(nodoActual.valor.destino).valor.agregarPerdidas(nodoActual.valor.gananciaNeta);    // O(1)
-            // actualizarGanancias(nodoActual.valor.origen);
-            // actualizarPerdidas(nodoActual.valor.destino);
-            // actualizarBalance(nodoActual.valor.origen, conjCiudades.get(i).valor.ganancias, conjCiudades.get(MasGanancias.get(0)).valor.ganancias, MasGanancias.get(0), MasGanancias);
-            // actualizarBalance(nodoActual.valor.destino, conjCiudades.get(i).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);
             actualizarBalance(nodoActual);    // O(1)
             ciudadesSuperavit.siftUp(conjCiudades.get(nodoActual.valor.origen).pospropia);        // O(log|C|)
             ciudadesSuperavit.siftDown(conjCiudades.get(nodoActual.valor.destino).pospropia);     // O(log|C|)
@@ -134,37 +107,6 @@ public class BestEffort {
         return res;
     }
 
-    // public void actualizarGanancias(int i){
-    //     if (conjCiudades.get(i).valor.ganancias> conjCiudades.get(MasGanancias.get(0)).valor.ganancias
-    //         || (i == MasGanancias.get(0) && conjCiudades.get(i).valor.ganancias == conjCiudades.get(MasGanancias.get(0)).valor.ganancias)){
-    //         MasGanancias.clear();
-    //         Integer j = (Integer) i;
-    //         MasGanancias.add(j);
-    //     } else if (conjCiudades.get(i).valor.ganancias== conjCiudades.get(MasGanancias.get(0)).valor.ganancias){
-    //         Integer j = (Integer) i;
-    //         MasGanancias.add(j);
-    //     }}
-
-    // public void actualizarPerdidas(int i){
-    //     if (conjCiudades.get(i).valor.perdidas> conjCiudades.get(MasPerdidas.get(0)).valor.perdidas
-    //         || (i == MasPerdidas.get(0) && conjCiudades.get(i).valor.perdidas == conjCiudades.get(MasPerdidas.get(0)).valor.perdidas)){
-    //         MasPerdidas.clear();
-    //         Integer j = (Integer) i;
-    //         MasPerdidas.add(j);
-    //     } else if (conjCiudades.get(i).valor.perdidas== conjCiudades.get(MasPerdidas.get(0)).valor.perdidas){
-    //         Integer j = (Integer) i;
-    //         MasPerdidas.add(j);
-    //     }}
-
-        // public void actualizarBalance(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){
-        //     if (valorAnalizado > valorAnalizado || (i == posPrimerPos && valorAnalizado == valorPrimerPos)){
-        //         lista.clear();
-        //         Integer j = (Integer) i;
-        //         lista.add(j);
-        //     } else if (valorAnalizado == valorPrimerPos){
-        //         Integer j = (Integer) i;
-        //         lista.add(j);
-        //     }}
 
         public void actualizarBalance(Nodo<Traslado> nodoActual){    // El metodo es O(1).
             int orig = nodoActual.valor.origen;     // O(1)
@@ -173,7 +115,7 @@ public class BestEffort {
             resolverMaximo(dest, conjCiudades.get(dest).valor.perdidas, conjCiudades.get(MasPerdidas.get(0)).valor.perdidas, MasPerdidas.get(0), MasPerdidas);    // O(1)
         }
         public void resolverMaximo(int i, int valorAnalizado, int valorPrimerPos, int posPrimerPos, ArrayList<Integer> lista){    // El metodo es O(1).
-            if (valorAnalizado > valorPrimerPos || (i == posPrimerPos)){    // O()
+            if (valorAnalizado > valorPrimerPos || (i == posPrimerPos)){    // O(1)
                 lista.clear();                   // O(1)
                 Integer j = (Integer) i;         // O(1)
                 lista.add(j);                    // O(1)
