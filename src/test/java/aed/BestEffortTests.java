@@ -296,7 +296,7 @@ public class BestEffortTests {
             valordespahos += a.gananciaNeta;
             ciudades.get(a.destino).perdidas+=a.gananciaNeta;
             ciudades.get(a.origen).ganancias+=a.gananciaNeta;
-            trasladosIDsNuestros[ trasladosIds.length-1-i] = a.id;
+            trasladosIDsNuestros[i] = a.id;
         }
 
         assertArrayEquals(trasladosIds, trasladosIDsNuestros);
@@ -306,8 +306,8 @@ public class BestEffortTests {
 
     @Test
     void stresstest(){
-        int NCLAVES = 8; //multiplo de 4
-        int NCIUDADES = 2;
+        int NCLAVES = 1000; //multiplo de 4
+        int NCIUDADES = 20;
         ArrayList<Ciudad> ciudades = new ArrayList<>();
         for (int i=0;i<NCIUDADES;i++){
             ciudades.add(new Ciudad(i));
@@ -319,7 +319,7 @@ public class BestEffortTests {
         }
 
         //registrar trslados por constructor
-        BestEffort sistema = BestEffort.nuevoSistema(NCIUDADES, listaTraslados);
+        BestEffort sistema = BestEffort.nuevoSistema(NCIUDADES, (Traslado[]) traslados.toArray(new Traslado[0]));
 
         //registrar traslados de a 1
         for (int i=NCLAVES/2;i<NCLAVES/4*3;i++){
@@ -354,7 +354,7 @@ public class BestEffortTests {
         insertionSort(traslados, cmpTrasladoXAntiguedad);
         int[] ants = sistema.despacharMasAntiguos(NCLAVES/2-1);
         trasladosValorTotal += actualizarYVerificarDespachos(ants, traslados, ciudades);
-        validarTodo(sistema, traslados, ciudades, trasladosValorTotal, NCLAVES/2-1);
+        validarTodo(sistema, traslados, ciudades, trasladosValorTotal, NCLAVES-1);
 
 
         int[] ant = sistema.despacharMasAntiguos(1);
