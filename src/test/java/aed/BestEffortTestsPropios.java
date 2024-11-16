@@ -72,4 +72,11 @@ void ciudadesPerdidasYGanancias(){
     assertSetEquals(new ArrayList<>(Arrays.asList(6, 1)), sis.ciudadesConMayorGanancia());
     assertEquals(1333, sis.gananciaPromedioPorTraslado());
 }
+
+
+@Test
+void despacharNMayorATraslados(){
+    BestEffort sis = new BestEffort(this.cantCiudades, this.listaTraslados);
+    assertArrayEquals(new int [] {7,5,6,3,4,2,1}, sis.despacharMasRedituables(8));
+}
 }
