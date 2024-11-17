@@ -74,6 +74,13 @@ void ciudadesPerdidasYGanancias(){
     assertEquals(1333, sis.gananciaPromedioPorTraslado());
 }
 
+
+@Test
+void despacharNMayorATraslados(){
+    BestEffort sis = new BestEffort(this.cantCiudades, this.listaTraslados);
+    assertArrayEquals(new int [] {7,5,6,3,4,2,1}, sis.despacharMasRedituables(8));
+}
+
 private static Integer clave(Integer NCLAVES, Integer i) {
         return NCLAVES * ((i * i - 100 * i) % NCLAVES) + i;
     }

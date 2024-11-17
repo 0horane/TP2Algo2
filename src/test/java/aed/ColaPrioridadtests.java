@@ -54,7 +54,7 @@ public class ColaPrioridadtests {
             assertEquals(i,cola.eliminar(0).valor);
         }
     }
-
+    @Test
     void heapifyConVariosEnDesorden(){
         ArrayList<Nodo<Integer>> datos =new ArrayList<>();
         for (int i = 1; i <= 6;i++){
@@ -67,6 +67,7 @@ public class ColaPrioridadtests {
         for (int i = 6; i >=1 ;i--){
             assertEquals(i,cola.eliminar(0).valor);
         }
+        assertEquals(null, cola.eliminar(0));
     }
 
 
