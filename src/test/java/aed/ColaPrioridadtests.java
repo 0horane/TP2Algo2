@@ -108,4 +108,84 @@ public class ColaPrioridadtests {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+    private static Integer clave(Integer NCLAVES, Integer i) {
+        return NCLAVES * ((i * i - 100 * i) % NCLAVES) + i;
+    }
+
+    public static <T> void insertionSort(ArrayList<T> list, Comparator<T> cmp){
+        for (int i=0;i<list.size();i++){
+            int j=i;
+            T item = list.get(j);
+            while(j!=0 && cmp.compare(list.get(j-1), item)>0){
+                list.set(j,list.get(j-1));
+                j--;
+            }
+            list.set(j, item);
+        }
+    }
+
+    static Comparator<Integer> cmpInteger = new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2 - o1;
+        }
+    };
+
+
+    public static void validarTodo(ArrayList<Integer> datos, ColaPrioridad<Integer> cola){
+        ArrayList<Integer> datosCopy = (ArrayList<Integer>) datos.clone();
+
+        insertionSort(datosCopy, cmpInteger);
+        
+        int index = 0;
+        while (index<=datosCopy.size()-1){
+            assertEquals(datosCopy.get(0), cola.maximo().valor);
+            assertEquals(datosCopy.get(0), cola.eliminar(0).valor);
+            if(datosCopy.size()>0){
+                datosCopy.remove(0);
+            }
+            
+            assertEquals(datosCopy.size(),cola.len());
+            index+=1;
+        }
+    }
+
+    
+    @Test
+void stresstest(){
+    int NCLAVES = 1000;
+    ArrayList<Nodo<Integer>> datosTestNodo = new ArrayList<Nodo<Integer>>();
+    ArrayList<Integer> datosTestInteger = new ArrayList<Integer>();
+
+    for (int i=0;i<NCLAVES/2;i++){
+        Integer j = (Integer) i;
+        datosTestNodo.add(new Nodo<Integer>(clave(NCLAVES, j)));
+        datosTestInteger.add(clave(NCLAVES, j));
+    }
+
+    //registrar datos por constructor
+    ColaPrioridad<Integer> colaTest = new ColaPrioridad(datosTestNodo, new CompInteger());
+
+    //registrar datos de a 1
+    for (int i=NCLAVES/2;i<NCLAVES;i++){
+        Integer j = (Integer) i;
+        datosTestNodo.add(new Nodo<Integer>(clave(NCLAVES, j)));
+        datosTestInteger.add(clave(NCLAVES, j));
+        colaTest.agregar(datosTestNodo.get(j));
+    }
+
+    //validar
+    validarTodo(datosTestInteger, colaTest);
+}
 }
