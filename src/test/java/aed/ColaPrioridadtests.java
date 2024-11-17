@@ -10,13 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 
 public class ColaPrioridadtests {
-    public class CompInt implements Comparator<Nodo<Integer>>{
+    public class CompInteger implements Comparator<Nodo<Integer>>{
         public int compare(Nodo<Integer> t1, Nodo<Integer> t2){
             int res = t1.valor - t2.valor;
             return res;
         }
     }
-    Comparator<Nodo<Integer>> c = new CompInt();
+    Comparator<Nodo<Integer>> c = new CompInteger();
     @Test
     void inicializarHeapVacio(){
         ColaPrioridad<Integer> cola = new ColaPrioridad<Integer>(c);
